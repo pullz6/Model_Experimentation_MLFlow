@@ -8,7 +8,7 @@ def run_deployment():
     # Create a new MLflow Experiment
     mlflow.set_experiment("MLflow Quickstart")
     
-    accuracy,params,X_train, y_train, lr = loading_training()
+    accuracy,params,X_train, y_train, lr, X_test, y_test = loading_training()
     print(accuracy)
     # Start an MLflow run
     with mlflow.start_run():
@@ -33,7 +33,25 @@ def run_deployment():
             registered_model_name="tracking-quickstart",
         )
         
+        return X_test, y_test, model_info
+
+def inference(X_test, y_test, model_info): 
+    # Load the model back for predictions as a generic Python Function model
+    loaded_model = mlflow.pyfunc.load_model(model_info.model_uri)
+
+    predictions = loaded_model.predict(X_test)
+
+    iris_feature_names = datasets.load_iris().feature_names
+
+    result = pd.DataFrame(X_test, columns=iris_feature_names)
+    result["actual_class"] = y_test
+    result["predicted_class"] = predictions
+
+    print(result[:4])
+    
+    
 if __name__ == "__main__":
     print('starting')
-    run_deployment()
+    X_test, y_test, model_info = run_deployment()
+    inference(X_test, y_test, model_info)
     
