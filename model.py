@@ -35,4 +35,4 @@ def loading_training():
     # Calculate metrics
     accuracy = accuracy_score(y_test, y_pred)
     
-    return accuracy, params, X_train, y_train, lr
+    return accuracy, params, X_train, y_train, lr, X_test, y_test
