@@ -2,7 +2,7 @@ import pandas as pd
 import kagglehub
 import os
 
-def load_data():
+def load_df():
 
     # Download latest version
     path = kagglehub.dataset_download("anshtanwar/global-data-on-sustainable-energy")
