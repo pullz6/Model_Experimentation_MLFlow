@@ -6,7 +6,7 @@ def run_deployment():
     print('starting the run')
     #mlflow.set_tracking_uri(uri="http://127.0.0.1:8080")
     # Create a new MLflow Experiment
-    mlflow.set_experiment("MLflow Quickstart")
+    mlflow.set_experiment("Energy_tracker")
     
     accuracy,params,X_train, y_train, lr, X_test, y_test = loading_training()
     print(accuracy)
@@ -27,10 +27,10 @@ def run_deployment():
         # Log the model
         model_info = mlflow.sklearn.log_model(
             sk_model=lr,
-            artifact_path="iris_model",
+            artifact_path="Energy_model",
             signature=signature,
             input_example=X_train,
-            registered_model_name="tracking-quickstart",
+            registered_model_name="tracking-model",
         )
         
         return X_test, y_test, model_info
@@ -41,9 +41,7 @@ def inference(X_test, y_test, model_info):
 
     predictions = loaded_model.predict(X_test)
 
-    iris_feature_names = datasets.load_iris().feature_names
-
-    result = pd.DataFrame(X_test, columns=iris_feature_names)
+    result = pd.DataFrame(X_test)
     result["actual_class"] = y_test
     result["predicted_class"] = predictions
 
