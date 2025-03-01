@@ -1,4 +1,6 @@
 from loading_data import * 
+import pandas as pd 
+import seaborn as sns 
 
 def cleaning_data():    
     df = load_df()
@@ -19,3 +21,4 @@ def cleaning_data():
     df['gdp_per_capita'].fillna(df["gdp_per_capita"].median(),inplace=True)
     df['Renewable-electricity-generating-capacity-per-capita'].fillna(df["Renewable-electricity-generating-capacity-per-capita"].median(),inplace=True)
     return df 
+
