@@ -1,8 +1,30 @@
-import pandas as pd 
-
+import pandas as pd
 import kagglehub
+import os
 
-# Download latest version
-path = kagglehub.dataset_download("anshtanwar/global-data-on-sustainable-energy")
+def load_data():
 
-print("Path to dataset files:", path)
+    # Download latest version
+    path = kagglehub.dataset_download("anshtanwar/global-data-on-sustainable-energy")
+
+    print("Path to dataset files:", path)
+
+    # List files in the directory
+    files = os.listdir(path)
+    print("Files in dataset:", files)
+
+    # Assuming the dataset contains a CSV file, find the first CSV file
+    csv_files = [file for file in files if file.endswith(".csv")]
+
+    if csv_files:
+        file_path = os.path.join(path, csv_files[0])  # Use the first CSV file found
+        df = pd.read_csv(file_path)
+        print("DataFrame loaded successfully!")
+        print(df.head())  # Display the first few rows
+    else:
+        print("No CSV file found in the dataset directory.")
+    
+    return df
+
+
+    
