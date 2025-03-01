@@ -19,8 +19,8 @@ def load_df():
     if csv_files:
         file_path = os.path.join(path, csv_files[0])  # Use the first CSV file found
         df = pd.read_csv(file_path)
-        print("DataFrame loaded successfully!")
-        print(df.head())  # Display the first few rows
+        #print("DataFrame loaded successfully!")
+        #print(df.head())  # Display the first few rows
     else:
         print("No CSV file found in the dataset directory.")
     

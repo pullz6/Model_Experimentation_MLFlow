@@ -2,9 +2,11 @@ from loading_data import *
 import pandas as pd 
 import seaborn as sns 
 
-def cleaning_data():    
+def cleaning_df():    
     df = load_df()
-    df = df.drop(["Land Area(Km2)","Latitude","Longitude",],axis=1)
+    print(df.info())
+    df = df.drop(["Land Area(Km2)","Latitude","Longitude","Density\\n(P/Km2)"],axis=1)
+    print(df.info())
     df['Access to electricity (% of population)'].fillna(df["Access to electricity (% of population)"].median(),inplace=True)
     df['Access to clean fuels for cooking'].fillna(df["Access to clean fuels for cooking"].median(),inplace=True)
     df['Financial flows to developing countries (US $)'].fillna(df["Financial flows to developing countries (US $)"].median(),inplace=True)
@@ -21,4 +23,5 @@ def cleaning_data():
     df['gdp_per_capita'].fillna(df["gdp_per_capita"].median(),inplace=True)
     df['Renewable-electricity-generating-capacity-per-capita'].fillna(df["Renewable-electricity-generating-capacity-per-capita"].median(),inplace=True)
     return df 
+
 
