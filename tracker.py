@@ -8,18 +8,18 @@ def run_deployment():
     # Create a new MLflow Experiment
     mlflow.set_experiment("Energy_tracker")
     
-    accuracy,params,X_train, y_train, lr, X_test, y_test = loading_training()
-    print(accuracy)
+    mse,params,X_train, y_train, lr, X_test, y_test = loading_training()
+    print(mse)
     # Start an MLflow run
     with mlflow.start_run():
         # Log the hyperparameters
         mlflow.log_params(params)
 
         # Log the loss metric
-        mlflow.log_metric("accuracy", accuracy)
+        mlflow.log_metric("MSE", mse)
 
         # Set a tag that we can use to remind ourselves what this run was for
-        mlflow.set_tag("Training Info", "Basic LR model for iris data")
+        mlflow.set_tag("Training Info", "Training a linear regression model for Engery consumption")
 
         # Infer the model signature
         signature = infer_signature(X_train, lr.predict(X_train))
