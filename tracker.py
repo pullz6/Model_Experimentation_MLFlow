@@ -8,15 +8,15 @@ def run_deployment():
     # Create a new MLflow Experiment
     mlflow.set_experiment("Energy_tracker")
     
-    mse,params,X_train, y_train, lr, X_test, y_test = loading_training()
-    print(mse)
+    rmse,params,X_train, y_train, lr, X_test, y_test,r2 = loading_training()
     # Start an MLflow run
     with mlflow.start_run():
         # Log the hyperparameters
-        mlflow.log_params(params)
+        #mlflow.log_params(params)
 
         # Log the loss metric
-        mlflow.log_metric("MSE", mse)
+        mlflow.log_metric("RMSE", rmse)
+        mlflow.log_metric("R2_Score", r2)
 
         # Set a tag that we can use to remind ourselves what this run was for
         mlflow.set_tag("Training Info", "Training a linear regression model for Engery consumption")
